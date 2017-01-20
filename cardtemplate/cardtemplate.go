@@ -7,20 +7,22 @@ import (
 
 // Template structure
 type Template struct {
+	Subject  string
 	template *template.Template
-}
-
-// New creates a new card template
-func (t Template) New(subject string) {
-	t.template = template.New("subject")
 }
 
 // GetSubject from a template
 func (t *Template) GetSubject(name string) (string, error) {
 	var buf bytes.Buffer
 	var data = map[string]string{
-		"foo": "bar",
+		"name": name,
 	}
+
+	if t.template == nil {
+		t.template = template.New("subject")
+		t.template.Parse(t.Subject)
+	}
+
 	var err = t.template.Execute(&buf, data)
 	return buf.String(), err
 }

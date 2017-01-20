@@ -15,7 +15,7 @@ type Card struct {
 	Dest     string
 }
 
-const frame = "../frame.png"
+const frame = "frame.png"
 
 // New creates a new card
 // frame from https://www.prestophoto.com/designer/template/800

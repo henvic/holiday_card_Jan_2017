@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/godinezj/holiday_card_Jan_2017/imageprocessing"
+	"github.com/SDGophers/holiday_card_Jan_2017/cardtemplate"
+	"github.com/SDGophers/holiday_card_Jan_2017/imageprocessing"
 )
 
 var (
@@ -26,14 +27,20 @@ func init() {
 	flag.StringVar(&usersFile, "u", "", "The user's file")
 }
 
-func genCard(file string, user string) {
+func genCard(t cardtemplate.Template, file string, user string) {
 	if _, e := os.Stat(infile); e != nil {
 		fmt.Println("File does not exist")
 	}
 
+	var text, errt = t.GetSubject(user)
+
+	if errt != nil {
+		panic(errt)
+	}
+
 	var card = imageprocessing.Card{
 		Title:    title,
-		Text:     user,
+		Text:     text,
 		ImageSrc: infile,
 		Dest:     file,
 	}
@@ -70,9 +77,14 @@ func main() {
 		scanner := bufio.NewScanner(f)
 		scanner.Split(bufio.ScanLines)
 		cntr := 0
+
+		var cardTemplate = cardtemplate.Template{
+			Subject: message,
+		}
+
 		for scanner.Scan() {
 			name := fmt.Sprintf("card%d.pdf", cntr)
-			genCard(name, scanner.Text())
+			genCard(cardTemplate, name, scanner.Text())
 			cntr++
 		}
 	}
