@@ -5,7 +5,7 @@ import "testing"
 func TestNew(t *testing.T) {
 	var card = Card{
 		Title:    "Hello, World!",
-		ImageSrc: "",
+		ImageSrc: "fancygopher.jpg",
 		Dest:     "file.pdf",
 	}
 
