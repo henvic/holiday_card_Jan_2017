@@ -15,7 +15,7 @@ type Card struct {
 	Dest     string
 }
 
-const template = "../frame.png"
+const frame = "../frame.png"
 
 // New creates a new card
 // frame from https://www.prestophoto.com/designer/template/800
@@ -23,7 +23,7 @@ func New(card Card) (err error) {
 	pdf := gofpdf.New("L", "mm", "A6", "")
 	pdf.AddPage()
 
-	pdf.Image(template, 0, 0, 0, 115, false, "", 0, "")
+	pdf.Image(frame, 0, 0, 0, 115, false, "", 0, "")
 
 	if card.ImageSrc != "" {
 		pdf.Image(card.ImageSrc, 40, 30, 30, 0, false, "", 0, "")
