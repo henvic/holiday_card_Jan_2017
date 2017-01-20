@@ -1,10 +1,16 @@
 package imageprocessing
 
-import "github.com/jung-kurt/gofpdf"
+import (
+	"strings"
+
+	"github.com/jung-kurt/gofpdf"
+)
 
 // Card for processing
 type Card struct {
-	Title    string
+	Title string
+	Text  string
+
 	ImageSrc string
 	Dest     string
 }
@@ -16,14 +22,18 @@ const template = "frame.png"
 func New(card Card) (err error) {
 	pdf := gofpdf.New("L", "mm", "A6", "")
 	pdf.AddPage()
-	pdf.SetFont("Arial", "B", 16)
-	pdf.Cell(40, 10, card.Title)
 
 	pdf.Image(template, 0, 0, 0, 115, false, "", 0, "")
 
 	if card.ImageSrc != "" {
-		pdf.Image(card.ImageSrc, 10, 10, 30, 0, false, "", 0, "")
+		pdf.Image(card.ImageSrc, 40, 30, 30, 0, false, "", 0, "")
 	}
+
+	pdf.SetFont("Arial", "B", 14)
+	pdf.WriteAligned(0, 60, strings.Repeat(" ", 45)+card.Title, "")
+	pdf.Ln(20)
+	pdf.SetFont("Arial", "I", 9)
+	pdf.WriteAligned(0, 35, strings.Repeat(" ", 70)+"This text is aligned Left", "L")
 
 	err = pdf.OutputFileAndClose(card.Dest)
 	return err
