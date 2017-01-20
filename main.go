@@ -58,20 +58,21 @@ func main() {
 	}
 
 	if infile == "" {
-		fmt.Println("Please specify a file name (-i)")
+		println("Please specify a file name (-i)")
+		os.Exit(1)
 		return
 	}
 
 	if message == "" {
-		fmt.Println("Please specify a message, use quotes (-m)")
-		return
+		println("Please specify a message, use quotes (-m)")
+		os.Exit(1)
 	}
 
 	if usersFile != "" {
 		f, err := os.Open(usersFile)
 		if err != nil {
-			fmt.Println("error opening file ", err)
-			return
+			println("error opening file ", err)
+			os.Exit(1)
 		}
 		defer f.Close()
 		scanner := bufio.NewScanner(f)
