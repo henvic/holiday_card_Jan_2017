@@ -49,7 +49,8 @@ func main() {
 
 	var card = imageprocessing.Card{
 		Title:    title,
-		ImageSrc: fmt.Sprintf("../%s", infile),
+		Text:     message,
+		ImageSrc: infile,
 		Dest:     outfile,
 	}
 
