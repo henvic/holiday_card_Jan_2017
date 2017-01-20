@@ -48,8 +48,8 @@ func main() {
 	}
 
 	var card = imageprocessing.Card{
-		Title:    fmt.Sprintf("../%s", title),
-		ImageSrc: infile,
+		Title:    title,
+		ImageSrc: fmt.Sprintf("../%s", infile),
 		Dest:     outfile,
 	}
 
