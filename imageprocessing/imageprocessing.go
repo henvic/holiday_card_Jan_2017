@@ -15,7 +15,7 @@ type Card struct {
 	Dest     string
 }
 
-const template = "frame.png"
+const template = "../frame.png"
 
 // New creates a new card
 // frame from https://www.prestophoto.com/designer/template/800
@@ -33,7 +33,7 @@ func New(card Card) (err error) {
 	pdf.WriteAligned(0, 60, strings.Repeat(" ", 45)+card.Title, "")
 	pdf.Ln(20)
 	pdf.SetFont("Arial", "I", 9)
-	pdf.WriteAligned(0, 35, strings.Repeat(" ", 70)+"This text is aligned Left", "L")
+	pdf.WriteAligned(0, 35, strings.Repeat(" ", 70)+card.Text, "L")
 
 	err = pdf.OutputFileAndClose(card.Dest)
 	return err
